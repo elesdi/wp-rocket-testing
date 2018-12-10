@@ -918,12 +918,20 @@ function rocket_clean_cache_dir() {
 	do_action( 'before_rocket_clean_cache_dir' );
 
 	// Delete all caching files.
+	/**
 	$dirs = glob( WP_ROCKET_CACHE_PATH . '*', GLOB_NOSORT );
 	if ( $dirs ) {
 		foreach ( $dirs as $dir ) {
 			rocket_rrmdir( $dir );
 		}
 	}
+	*/
+	
+	// Faster way to delete cache
+	$i=0;
+	do $i++; while (file_exists(WP_ROCKET_CACHE_PATH.$i));
+	rename(WP_ROCKET_CACHE_PATH,WP_ROCKET_CACHE_PATH.$i);
+	
 
 	/**
 	 * Fires after deleting all caching files in the cache folder
